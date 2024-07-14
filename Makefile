@@ -12,7 +12,7 @@ entry.o: arch/x86/boot/entry.asm
 kernel.o: arch/x86/kernel/kernel.c
 	gcc -m32 -ffreestanding -c $< -o $@
 
-mbr.bin: arch/x86/boot/mbr.asm
+mbr.bin: arch/x86/boot/boot.asm
 	nasm $< -f bin -o $@
 
 guinix.bin: mbr.bin kernel.bin
