@@ -8,6 +8,9 @@
 ;; know about 95% of what this code
 ;; does. Enjoy!
 
+
+;; Probably bungled this, I know I wrote it right,
+;; but I don't know if it is applicable here.
 MBALIGN  equ 1 << 0
 MEMINFO  equ 1 << 1
 MBFLAGS  equ MBALIGN | MEMINFO
@@ -55,13 +58,28 @@ disk_load:
         popa
         ret
 
-DISK_ERROR:
+DISK_ERROR:			;; Disk error code: 0x00
         call err_header 
 	mov al, '0'
-	push al
+	int 10h
+
+	mov al, '0'
+	int 10h
 
         jmp DISK_LOOP
 
+SECTORS_ERROR:			;; Sectors error code: 0x01
+	call err_header
+	mov al, '0'
+	int 10h
+
+	mov al, '1'
+	int 10h
+
+	jmp DISK_LOOP
+
+DISK_LOOP:			;; Simply an infinite loop,
+	jmp $			;; as there is nothing to be done.
 
 err_header:
 	xor ax, ax
@@ -101,8 +119,6 @@ CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
 
 [bits 16]
-
-%include "boot/err.asm"
 
 [bits 16]
 load_kernel:
