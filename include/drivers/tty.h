@@ -1,11 +1,11 @@
-#ifndef KERNEL_TTY_H
-#define KERNEL_TTY_H
+#ifndef DRIVERS_TTY_H
+#define DRIVERS_TTY_H
 
 /*
  *
- * KERNEL_TTY_H
+ * DRIVERS_TTY_H
  *
- * TTY routine header.
+ * TTY Driver Header
  *
  * Defined in:
  * 	kernel/arch/i686/boot/tty.c
@@ -15,7 +15,7 @@
  */
 
 #include <stddef.h>
-
+#include <stdint.h>
 
 /*
  *

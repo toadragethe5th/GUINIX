@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <kernel/tty.h>
+#include <drivers/tty.h>
 
 #include "vga.h"
 
@@ -54,7 +54,7 @@ void terminal_initialize(void)
 
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_LIGHT_BLACK);
+	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
 	terminal_buffer = VMEM;
 
 	for (size_t y = 0; y < VGA_HEIGHT; y++)
@@ -111,7 +111,7 @@ void terminal_putchar(char c)
 		if (++terminal_row == VGA_HEIGHT)
 		{
 
-			terminal_row = 0
+			terminal_row = 0;
 
 		}
 	

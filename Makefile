@@ -4,23 +4,31 @@
 
 SHELL   ?= /bin/sh
 CC      ?= gcc
-CFLAGS  ?= -m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CFLAGS  ?= -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I./include
 AS      ?= as
 
 i686    =  arch/i686
 
-kernel  = kernel
-
 # Include dirs
-INCLUDEDIR  = include
 
-all:
-	run
+# Add more include directories as needed
 
-boot.o: $(i686)/boot/boot.S
-	as $< -o $@
+.PHONY: all
 
-kernel.o: $(kernel)/kernel.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+all:	boots.o	bootc.o kernel.o guinix.bin
 
+boots.o: $(i686)/boot/boot.S
+	$(CC) -S  $< -o $@ -fPIE
 
+bootc.o: $(i686)/boot/tty.c
+	$(CC) -c $^ -o $@ $(CFLAGS)
+
+kernel.o: kernel/kernel.c
+	$(CC) -c -e kmain $^ -o $@ $(CFLAGS)
+
+guinix.bin: boots.o bootc.o kernel.o
+	$(CC) -T linker.ld -o $@ $(CFLAGS) $^ -lgcc
+
+clean:
+	rm *.o
+	rm *.bin
