@@ -27,7 +27,7 @@ kernel.o: kernel/kernel.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 guinix.bin: boots.o bootc.o kernel.o
-	$(CC) -T linker.ld -o $@ $(CFLAGS) -no-pie $^ -lgcc
+	$(CC) -T linker.ld -o $@ $(CFLAGS) -no-pie -nostdlib $^ -lgcc
 
 guinix.iso: guinix.bin
 	cp $< iso/boot/guinix.bin 
