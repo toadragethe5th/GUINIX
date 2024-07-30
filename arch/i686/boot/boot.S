@@ -34,9 +34,9 @@ stack_bottom:
 stack_top:
 
 .section .text
-.global _begin				# Defined for our linker
-.type _begin, @function
-_begin:					# Our entry point
+.global _start				# Defined for our linker
+.type _start, @function
+_start:					# Our entry point
 	mov $stack_top, %esp		# Set up a stack
 
 	/*
@@ -46,10 +46,10 @@ _begin:					# Our entry point
 	 *
 	 */
 
-	call kmain
+	call main
 
 	cli
 1:	hlt
 	jmp 1b
 
-.size _begin, . - _begin
+.size _start, . - _start

@@ -21,7 +21,7 @@
  * Main function as declared in boot.S
  *
  */
-void kmain(void)
+void main(void)
 {
 
 	terminal_initialize();
