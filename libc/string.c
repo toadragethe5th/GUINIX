@@ -11,6 +11,7 @@
  */
 
 #include <stdint.h>
+#include <stddef.h>
 
 #include <libc/string.h>
 
