@@ -15,7 +15,7 @@ i686    =  arch/i686
 
 .PHONY: all
 
-all:	boots.o	bootc.o kernel.o guinix.bin
+all:	boots.o	bootc.o kernel.o guinix.bin guinix.iso run 
 
 boots.o: $(i686)/boot/boot.S
 	$(CC) -c  $< -o $@
@@ -29,6 +29,15 @@ kernel.o: kernel/kernel.c
 guinix.bin: boots.o bootc.o kernel.o
 	$(CC) -T linker.ld -o $@ $(CFLAGS) -no-pie $^ -lgcc
 
+guinix.iso: guinix.bin
+	cp $< iso/boot/guinix.bin 
+	grub-mkrescue -o $@ iso
+	chmod 777 *.iso
+
+run: guinix.iso
+	qemu-system-i386 -cdrom $<
 clean:
 	rm *.o
 	rm *.bin
+	rm -f iso/boot/guinix.bin
+	rm *.iso
