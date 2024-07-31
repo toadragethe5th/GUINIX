@@ -9,8 +9,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <drivers/tty.h>
-#include <libc/string.h>
+#include <tty.h>
+#include <string.h>
 
 #include "vga.h"
 

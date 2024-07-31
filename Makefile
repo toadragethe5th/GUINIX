@@ -4,9 +4,12 @@
 
 SHELL   ?= /bin/sh
 CC      ?= gcc
-CFLAGS  ?= -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I./include
+CFLAGS  ?= -std=gnu99 -ffreestanding -O2 -Wall -Wextra \
+	   -I./include/drivers \
+	   -I./include/libc
 AS      ?= as
 
+LIBC    := ./libc/$(wildcard *.c)
 i686    =  arch/i686
 
 # Include dirs
@@ -15,10 +18,13 @@ i686    =  arch/i686
 
 .PHONY: all
 
-all:	boots.o	bootc.o kernel.o guinix.bin guinix.iso run 
+all:	boots.o	libc.o bootc.o kernel.o guinix.bin guinix.iso run 
 
 boots.o: $(i686)/boot/boot.S
 	$(CC) -c  $< -o $@
+
+libc.o: $(LIBC)
+	$(CC) -c $^ -o $@ $(CFLAGS)
 
 bootc.o: $(i686)/boot/tty.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
