@@ -8,9 +8,11 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <string.h>
 
-#include <drivers/tty.h>
+#include <tty.h>
+// The stdlib doesn't exist; while stdbool/stddef/stdint just define things,
+// string.h actually links functions that don't exist
+// #include <string.h>
 
 #include "vga.h"
 
@@ -23,6 +25,11 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
+ptrdiff_t strlen(char const *string) {
+	long out = 0;
+	while(*string++) out++;
+	return out;
+}
 
 /*
  *
@@ -54,7 +61,7 @@ void terminal_initialize(void)
 
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	terminal_color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
 	terminal_buffer = VMEM;
 
 	for (size_t y = 0; y < VGA_HEIGHT; y++)

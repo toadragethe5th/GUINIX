@@ -13,7 +13,7 @@
  * Kernel-based headers
  *
  */
-#include <drivers/tty.h>
+#include <tty.h>
 
 
 /*
