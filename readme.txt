@@ -1,0 +1,1 @@
+GUINIX is a hobby operating system.
