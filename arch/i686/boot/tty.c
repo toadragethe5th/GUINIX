@@ -10,7 +10,9 @@
 #include <stdint.h>
 
 #include <tty.h>
-#include <string.h>
+// The stdlib doesn't exist; while stdbool/stddef/stdint just define things,
+// string.h actually links functions that don't exist
+// #include <string.h>
 
 #include "vga.h"
 
@@ -23,6 +25,11 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
+ptrdiff_t strlen(char const *string) {
+	long out = 0;
+	while(*string++) out++;
+	return out;
+}
 
 /*
  *
