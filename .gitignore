@@ -6,6 +6,7 @@
 *.o
 *.obj
 *.bc
+*.bin
 
 ### C ###
 # Prerequisites
