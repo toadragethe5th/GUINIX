@@ -9,7 +9,7 @@ CFLAGS  ?= -std=gnu99 -ffreestanding -O2 -Wall -Wextra \
 	   -I./include/libc
 AS      ?= as
 
-LIBC    := ./libc/$(wildcard *.c)
+LIBC    := $(wildcard ./libc/*.c)
 i686    =  arch/i686
 
 # Include dirs
