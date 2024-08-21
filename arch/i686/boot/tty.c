@@ -10,9 +10,11 @@
 #include <stdint.h>
 
 #include <tty.h>
-// The stdlib doesn't exist; while stdbool/stddef/stdint just define things,
-// string.h actually links functions that don't exist
+
 // #include <string.h>
+/* 	There is an strlen() function located in this header,
+	But we are currently just using the func defined here. */
+
 
 #include "vga.h"
 
