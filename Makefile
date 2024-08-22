@@ -37,11 +37,12 @@ guinix.bin: boots.o bootc.o kernel.o
 
 guinix.iso: guinix.bin
 	cp $< iso/boot/guinix.bin 
-	grub-mkrescue -o $@ iso
+	grub-mkrescue /usr/lib/grub/i386-pc -o $@ iso
 	chmod 777 *.iso
 
 run: guinix.iso
-	qemu-system-i386 -cdrom $<
+	qemu-system-i386 -cdrom $< -d int
+	
 clean:
 	rm *.o
 	rm *.bin
