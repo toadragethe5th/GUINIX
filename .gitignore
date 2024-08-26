@@ -50,6 +50,10 @@
 *.idb
 *.pdb
 
+# Image files.
+*.iso
+*.img
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
