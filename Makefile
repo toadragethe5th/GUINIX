@@ -8,7 +8,8 @@ CFLAGS += -I \
 
 CC      = gcc
 
-boot    = arch/x86/boot/boot.s
+ARCH   ?= x86
+boot    = arch/$(ARCH)/boot/boot.s
 
 all: boots.o kernel.elf guinix.iso
 
