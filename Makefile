@@ -3,18 +3,26 @@
 # Written by Ryan Murphy
 
 CFLAGS  = -O2 -nostdlib -ffreestanding -Wall -Wextra
-CFLAGS += -I \
-	  -I 
+CFLAGS += # -I./kernel/include/drivers 
 
-CC      = gcc
+CC      ?= gcc
 
+<<<<<<< HEAD
 ARCH   ?= x86
 boot    = arch/$(ARCH)/boot/boot.s
+=======
+boot    = arch/x86/boot
+boots   = $(boot)/boot.s
+bootc   = $(boot)/kmain.c
+>>>>>>> 7d6265a (Added random stuff to the makefile.)
 
-all: boots.o kernel.elf guinix.iso
+all: boots.o bootc.o kernel.elf guinix.iso
 
-boots.o: $(boot)
+boots.o: $(boots)
 	nasm -f elf64 $< -o ./build/$@
+
+bootc.o: $(bootc)
+	$(CC) -c $< -o ./build/$@
 
 kernel.elf: $(wildcard ./build/*.o)
 	ld -T linker.ld -melf_x86_64 $< -o ./build/$@
@@ -22,6 +30,7 @@ kernel.elf: $(wildcard ./build/*.o)
 
 guinix.iso:
 	grub-mkrescue -o $@ ./iso
+
 
 clean:
 	rm -f $(wildcard ./build/*.o)

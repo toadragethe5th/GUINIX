@@ -11,8 +11,19 @@ align 4
 	dd CHECKSUM
 
 section .text
+extern kmain
 _start:
-	
+	mov esp, kernel_stack + KERN_STACKSIZE
+	call kmain
+
 
 loop:
 	jmp loop
+
+section .data
+KERN_STACKSIZE equ 4096
+
+section .bss
+align 4
+kernel_stack:
+	resb KERN_STACKSIZE

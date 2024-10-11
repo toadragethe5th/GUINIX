@@ -82,4 +82,5 @@ dkms.conf
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+.iso
 # End of https://www.toptal.com/developers/gitignore/api/assembler,c,linux
